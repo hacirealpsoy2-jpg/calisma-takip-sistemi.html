@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelişmiş Çalışma ve Sağlık Takip Sistemi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #6b8cbc;
+            --accent: #ff7e5f;
+            --light: #f5f7fa;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --purple: #9b59b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 i {
+            color: var(--accent);
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .water-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .water-bottle {
+            width: 120px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background-color: #e3f2fd;
+            border-radius: 0 0 40px 40px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+        }
+        
+        .water-level {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #4fc3f7;
+            transition: height 0.8s ease;
+        }
+        
+        .water-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .water-target {
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+        
+        .water-times {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .water-time {
+            text-align: center;
+            flex: 1;
+            padding: 5px;
+        }
+        
+        .water-time.active {
+            background-color: var(--light);
+            border-radius: 5px;
+        }
+        
+        .water-time .time {
+            font-weight: bold;
+        }
+        
+        .water-time .amount {
+            font-size: 0.8rem;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+        
+        .reminder {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background-color: #ff6b4a;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+        
+        .btn-purple {
+            background-color: var(--purple);
+        }
+        
+        .btn-purple:hover {
+            background-color: #8e44ad;
+        }
+        
+        .study-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .study-item {
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .study-item:hover {
+            background-color: #e8eef7;
+            transform: scale(1.03);
+        }
+        
+        .study-item h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .study-item.completed {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--success);
+        }
+        
+        .study-item.in-progress {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .study-item.weak-topic {
+            background-color: #ffebee;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .timer {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+        
+        .streak {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .streak-day {
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .streak-day.active {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .study-details {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .study-details.active {
+            display: block;
+        }
+        
+        .resources {
+            margin-top: 20px;
+        }
+        
+        .resource-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: var(--light);
+            border-radius: 5px;
+        }
+        
+        .resource-item a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .resource-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .monthly-plan {
+            margin-top: 20px;
+        }
+        
+        .month {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .month-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+        
+        .month-content {
+            padding: 15px;
+            background-color: white;
+        }
+        
+        .week {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .week:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .week-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .day-plan {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .day-item {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px;
+            background-color: var(--light);
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .test-item {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--primary);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .reading-item {
+            background-color: #f0f8f0;
+            border-left: 4px solid var(--success);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .exercise-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .exercise-circle {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent) 0%, #e0e0e0 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 5px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .exercise-circle-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .exercise-count {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .exercise-label {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        
+        .exercise-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .reading-progress {
+            margin: 15px 0;
+        }
+        
+        .book-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background-color: var(--light);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .book-cover {
+            width: 60px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .book-info {
+            flex: 1;
+        }
+        
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .book-progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+        
+        .book-progress {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 5px;
+        }
+        
+        .analysis-section {
+            margin-top: 20px;
+        }
+        
+        .weak-topics-list {
+            margin: 15px 0;
+        }
+        
+        .weak-topic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #ffebee;
+            border-left: 4px solid var(--danger);
+            border-radius: 0 5px 5px 0;
+            margin-bottom: 10px;
+        }
+        
+        .weak-topic-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .summary-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .summary-content {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .tyt-ayt-connection {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #e8f4fd;
+            border-radius: 8px;
+        }
+        
+        .connection-arrow {
+            margin: 0 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .connection-item {
+            flex: 1;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .day-plan {
+                flex-direction: column;
+            }
+            
+            .tyt-ayt-connection {
+                flex-direction: column;
+            }
+            
+            .connection-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-graduation-cap"></i> Gelişmiş Çalışma ve Sağlık Takip Sistemi</h1>
+            <p class="subtitle">TYT-AYT Uyumu • AI Destekli Analiz • Fiziksel Egzersiz • Kişisel Gelişim</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">Gösterge Paneli</div>
+            <div class="tab" data-tab="study-plan">Çalışma Planı</div>
+            <div class="tab" data-tab="analysis">Analiz Sistemi</div>
+            <div class="tab" data-tab="resources">Kaynaklar</div>
+        </div>
+        
+        <div class="tab-content active" id="dashboard">
+            <div class="dashboard">
+                <div class="card">
+                    <h2><i class="fas fa-tint"></i> Su Takibi</h2>
+                    <div class="water-container">
+                        <div class="water-bottle">
+                            <div class="water-level" id="waterLevel"></div>
+                        </div>
+                        <div class="water-amount" id="waterAmount">0 / 2500 ml</div>
+                        <div class="water-target">Hedef: 2.5 Litre</div>
+                        
+                        <div class="water-times">
+                            <div class="water-time" id="morningWater">
+                                <div class="time">Sabah</div>
+                                <div class="amount">500 ml</div>
+                            </div>
+                            <div class="water-time" id="noonWater">
+                                <div class="time">Öğle</div>
+                                <div class="amount">1000 ml</div>
+                            </div>
+                            <div class="water-time" id="eveningWater">
+                                <div class="time">Akşam</div>
+                                <div class="amount">1000 ml</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-block" id="addWater"><i class="fas fa-plus"></i> 250 ml Su Ekle</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-dumbbell"></i> Fiziksel Egzersiz</h2>
+                    <div class="exercise-container">
+                        <div class="exercise-circle" id="exerciseCircle">
+                            <div class="exercise-circle-inner">
+                                <div class="exercise-count" id="exerciseCount">0</div>
+                                <div class="exercise-label">Elmas Şınav</div>
+                            </div>
+                        </div>
+                        <div class="exercise-target">Hedef: Günlük 100 (Sabah 50, Akşam 50)</div>
+                        
+                        <div class="exercise-buttons">
+                            <button class="btn btn-success" id="addExercise"><i class="fas fa-plus"></i> 10 Şınav Ekle</button>
+                            <button class="btn" id="resetExercise"><i class="fas fa-redo"></i> Sıfırla</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-book-open"></i> Okuma Takibi</h2>
+                    <div class="reading-progress">
+                        <div class="book-item">
+                            <div class="book-cover">Atomik<br>Alışkanlıklar</div>
+                            <div class="book-info">
+                                <div class="book-title">Atomik Alışkanlıklar - James Clear</div>
+                                <div class="book-progress-bar">
+                                    <div class="book-progress" id="atomicHabitsProgress" style="width: 0%"></div>
+                                </div>
+                                <div id="atomicHabitsStatus">Sayfa 1/248 (%0)</div>
+                            </div>
+                            <button class="btn btn-success" id="readAtomicHabits"><i class="fas fa-check"></i> 10 Sayfa Oku</button>
+                        </div>
+                        
+                        <div class="book-item">
+                            <div class="book-cover">Kürk Mantolu<br>Madonna</div>
+                            <div class="book-info">
+                                <div class="book-title">Kürk Mantolu Madonna - Sabahattin Ali</div>
+                                <div class="book-progress-bar">
+                                    <div class="book-progress" id="madonnaProgress" style="width: 0%"></div>
+                                </div>
+                                <div id="madonnaStatus">Sayfa 1/160 (%0)</div>
+                            </div>
+                            <button class="btn btn-success" id="readMadonna"><i class="fas fa-check"></i> 10 Sayfa Oku</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-block btn-purple" id="addBook"><i class="fas fa-plus"></i> Yeni Kitap Ekle</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-tasks"></i> Bugünkü Çalışma Planı</h2>
+                <div id="todayPlan">
+                    <!-- Bugünkü plan buraya dinamik olarak eklenecek -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-chart-line"></i> İlerleme ve Motivasyon</h2>
+                <div class="progress-container">
+                    <h3>TYT/AYT Genel İlerleme</h3>
+                    <div class="progress-bar">
+                        <div class="progress" id="overallProgress" style="width: 0%"></div>
+                    </div>
+                    <div id="overallProgressText">0% tamamlandı</div>
+                </div>
+                
+                <div class="streak">
+                    <div class="streak-day">Pzt</div>
+                    <div class="streak-day">Sal</div>
+                    <div class="streak-day">Çar</div>
+                    <div class="streak-day">Per</div>
+                    <div class="streak-day">Cum</div>
+                    <div class="streak-day">Cmt</div>
+                    <div class="streak-day">Paz</div>
+                </div>
+                <p style="text-align: center; margin-top: 15px;">Henüz çalışma seriniz yok! Hadi başlayalım!</p>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="study-plan">
+            <div class="card">
+                <h2><i class="fas fa-calendar-alt"></i> 6 Aylık TYT-AYT Entegre Çalışma Planı</h2>
+                <p>TYT ve AYT konuları entegre şekilde ilerlemektedir. İlişkili konular birlikte çalışılmaktadır.</p>
+                
+                <div class="tyt-ayt-connection">
+                    <div class="connection-item">
+                        <h3>TYT Konusu</h3>
+                        <p>Problemler</p>
+                    </div>
+                    <div class="connection-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="connection-item">
+                        <h3>AYT Konusu</h3>
+                        <p>Türev Uygulamaları</p>
+                    </div>
+                </div>
+                
+                <div class="monthly-plan" id="monthlyPlan">
+                    <!-- Aylık plan buraya dinamik olarak eklenecek -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="analysis">
+            <div class="card">
+                <h2><i class="fas fa-chart-pie"></i> AI Destekli Analiz Sistemi</h2>
+                <p>Zayıf olduğunuz konuları işaretleyin, AI size özel konu özeti oluştursun!</p>
+                
+                <div class="analysis-section">
+                    <h3>Zayıf Olduğunuz Konular</h3>
+                    <div class="weak-topics-list" id="weakTopicsList">
+                        <!-- Zayıf konular buraya eklenecek -->
+                    </div>
+                    
+                    <button class="btn btn-block btn-purple" id="addWeakTopic"><i class="fas fa-plus"></i> Zayıf Konu Ekle</button>
+                </div>
+                
+                <div class="analysis-section">
+                    <h3>Konu Özeti Oluşturucu</h3>
+                    <div class="summary-container">
+                        <div class="form-group">
+                            <label for="topicSelect">Konu Seçin:</label>
+                            <select id="topicSelect" class="btn-block" style="padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd;">
+                                <option value="">Bir konu seçin</option>
+                                <option value="tyt_problemler">TYT Problemler</option>
+                                <option value="ayt_turev">AYT Türev</option>
+                                <option value="tyt_paragraf">TYT Paragraf</option>
+                                <option value="ayt_organik_kimya">AYT Organik Kimya</option>
+                                <option value="tyt_geometri">TYT Geometri</option>
+                                <option value="ayt_integral">AYT İntegral</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-block" id="generateSummary"><i class="fas fa-robot"></i> AI ile Konu Özeti Oluştur</button>
+                        
+                        <div class="summary-content" id="summaryContent">
+                            <p>Özet burada görünecek...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-chart-bar"></i> Performans Analizi</h2>
+                <canvas id="performanceChart" height="250"></canvas>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="resources">
+            <div class="card">
+                <h2><i class="fas fa-book"></i> Kişisel Gelişim ve Okuma Kitapları</h2>
+                <div class="resources">
+                    <div class="resource-item">
+                        <h3>Kişisel Gelişim Kitapları</h3>
+                        <ul>
+                            <li><strong>Atomik Alışkanlıklar</strong> - James Clear (Günlük 10 sayfa)</li>
+                            <li><strong>Beyaz Zambaklar Ülkesinde</strong> - Grigory Petrov</li>
+                            <li><strong>İknanın Psikolojisi</strong> - Robert Cialdini</li>
+                            <li><strong>7 Etkili İnsan Alışkanlığı</strong> - Stephen R. Covey</li>
+                            <li><strong>Büyük Düşünmenin Büyüsü</strong> - David J. Schwartz</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <h3>TYT-AYT Türkçe Okuma Kitapları</h3>
+                        <ul>
+                            <li><strong>Kürk Mantolu Madonna</strong> - Sabahattin Ali (Günlük 10 sayfa)</li>
+                            <li><strong>Serenad</strong> - Zülfü Livaneli</li>
+                            <li><strong>Fareler ve İnsanlar</strong> - John Steinbeck</li>
+                            <li><strong>İnce Memed</strong> - Yaşar Kemal</li>
+                            <li><strong>Kuyucaklı Yusuf</strong> - Sabahattin Ali</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <h3>Test ve Soru Bankası Önerileri</h3>
+                        <ul>
+                            <li><strong>Matematik:</strong> Okyanus 40 Seans, Bilgi Sarmal TYT Matematik, Acil Matematik</li>
+                            <li><strong>Fizik:</strong> Palme Fizik, Aydın Yayınları Fizik, Çap Yayınları Fizik</li>
+                            <li><strong>Türkçe:</strong> Limit Yayınları Türkçe, Bilgi Sarmal Paragraf, Kafa Dengi Paragraf</li>
+                            <li><strong>Kimya:</strong> Çap Yayınları Kimya, Palme Kimya, Aydın Yayınları Kimya</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="studyDetailModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Çalışma Detayları</h2>
+            <div id="modalContent">
+                <!-- Modal içeriği buraya dinamik olarak eklenecek -->
+            </div>
+            <button class="btn btn-success btn-block" id="markComplete">Tamamlandı Olarak İşaretle</button>
+        </div>
+    </div>
+    
+    <div class="modal" id="weakTopicModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeWeakTopicModal">&times;</span>
+            <h2>Zayıf Konu Ekle</h2>
+            <div class="form-group">
+                <label for="weakTopicName">Konu Adı:</label>
+                <input type="text" id="weakTopicName" class="btn-block" style="padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd;">
+            </div>
+            <div class="form-group">
+                <label for="weakTopicSubject">Ders:</label>
+                <select id="weakTopicSubject" class="btn-block" style="padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd;">
+                    <option value="tyt_matematik">TYT Matematik</option>
+                    <option value="tyt_turkce">TYT Türkçe</option>
+                    <option value="tyt_fizik">TYT Fizik</option>
+                    <option value="tyt_kimya">TYT Kimya</option>
+                    <option value="ayt_matematik">AYT Matematik</option>
+                    <option value="ayt_fizik">AYT Fizik</option>
+                    <option value="ayt_kimya">AYT Kimya</option>
+                    <option value="ayt_biyoloji">AYT Biyoloji</option>
+                </select>
+            </div>
+            <button class="btn btn-block btn-purple" id="saveWeakTopic">Kaydet</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Gelişmiş Çalışma ve Sağlık Takip Sistemi • TYT-AYT Uyumu • AI Destekli Analiz • Fiziksel Gelişim</p>
+        </div>
+    </footer>
+
+    <script>
+        // Çalışma planı verileri - 6 AYLIK TAM PLAN
+        const studyPlan = {
+            "1": {
+                "date": "1. Hafta",
+                "subjects": {
+                    "TYT Matematik": {
+                        "topic": "Sayılar ve Temel Kavramlar",
+                        "tests": ["Okyanus 40 Seans Test 1-5", "Acil Matematik Problemler 1-10"],
+                        "book": "Matematik Kitabı Sayfa 1-25",
+                        "videos": ["Rehber Matematik - Temel Kavramlar", "Şenol Hoca - Sayılar"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "AYT Matematik": {
+                        "topic": "Temel Kavramlar ve İspat Yöntemleri",
+                        "tests": ["Palme AYT Matematik Test 1-3"],
+                        "book": "AYT Matematik Kitabı Sayfa 1-20",
+                        "videos": ["AYT Matematik - Temel Kavramlar"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "TYT Türkçe": {
+                        "topic": "Sözcükte Anlam",
+                        "tests": ["Limit Yayınları Sözcükte Anlam Testi", "Bilgi Sarmal Paragraf Test 1-3"],
+                        "book": "Türkçe Kitabı Sayfa 5-20",
+                        "reading": "Kürk Mantolu Madonna - Sayfa 1-30",
+                        "videos": ["Hocalara Geldik - Sözcükte Anlam", "Türkçeci - Anlam Bilgisi"],
+                        "completed": false,
+                        "weak": false
+                    }
+                }
+            },
+            "2": {
+                "date": "2. Hafta",
+                "subjects": {
+                    "TYT Matematik": {
+                        "topic": "Üslü ve Köklü Sayılar",
+                        "tests": ["Okyanus 40 Seans Test 6-10", "Bilgi Sarmal Üslü Sayılar Testi"],
+                        "book": "Matematik Kitabı Sayfa 26-45",
+                        "videos": ["Rehber Matematik - Üslü Sayılar", "Matematik Günlüğü - Köklü Sayılar"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "AYT Matematik": {
+                        "topic": "Fonksiyonlar ve Grafikler",
+                        "tests": ["Palme AYT Matematik Test 4-6"],
+                        "book": "AYT Matematik Kitabı Sayfa 21-40",
+                        "videos": ["AYT Matematik - Fonksiyonlar"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "TYT Fizik": {
+                        "topic": "Fizik Bilimine Giriş",
+                        "tests": ["Palme Fizik Test 1-3", "Aydın Yayınları Fizik Test 1"],
+                        "book": "Fizik Kitabı Sayfa 1-15",
+                        "videos": ["Fizikle Barış - Fizik Bilimi", "Vitrune Akademi - Fizik Giriş"],
+                        "completed": false,
+                        "weak": false
+                    }
+                }
+            },
+            "3": {
+                "date": "3. Hafta",
+                "subjects": {
+                    "TYT Matematik": {
+                        "topic": "Oran-Orantı ve Problemler",
+                        "tests": ["Okyanus 40 Seans Test 11-15", "Acil Matematik Problemler 11-20"],
+                        "book": "Matematik Kitabı Sayfa 46-65",
+                        "videos": ["Rehber Matematik - Problemler", "Şenol Hoca - Oran-Orantı"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "AYT Matematik": {
+                        "topic": "Limit ve Süreklilik",
+                        "tests": ["Palme AYT Matematik Test 7-9"],
+                        "book": "AYT Matematik Kitabı Sayfa 41-60",
+                        "videos": ["AYT Matematik - Limit"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "TYT Kimya": {
+                        "topic": "Kimya Bilimine Giriş",
+                        "tests": ["Palme Kimya Test 1-3", "Çap Yayınları Kimya Test 1"],
+                        "book": "Kimya Kitabı Sayfa 1-20",
+                        "videos": ["Kimya Özel - Temel Kavramlar", "Kimya Adası - Kimya Bilimi"],
+                        "completed": false,
+                        "weak": false
+                    }
+                }
+            },
+            "4": {
+                "date": "4. Hafta",
+                "subjects": {
+                    "TYT Matematik": {
+                        "topic": "Denklemler ve Eşitsizlikler",
+                        "tests": ["Okyanus 40 Seans Test 16-20", "Bilgi Sarmal Denklemler Testi"],
+                        "book": "Matematik Kitabı Sayfa 66-85",
+                        "videos": ["Rehber Matematik - Denklemler", "Matematik Günlüğü - Eşitsizlikler"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "AYT Matematik": {
+                        "topic": "Türev ve Uygulamaları",
+                        "tests": ["Palme AYT Matematik Test 10-12"],
+                        "book": "AYT Matematik Kitabı Sayfa 61-80",
+                        "videos": ["AYT Matematik - Türev"],
+                        "completed": false,
+                        "weak": false
+                    },
+                    "TYT Biyoloji": {
+                        "topic": "Biyoloji Bilimine Giriş",
+                        "tests": ["Palme Biyoloji Test 1-3", "Aydın Yayınları Biyoloji Test 1"],
+                        "book": "Biyoloji Kitabı Sayfa 1-15",
+                        "videos": ["Biyoloji Günlüğü - Biyoloji Bilimi", "Biyoloji Hocası - Temel Kavramlar"],
+                        "completed": false,
+                        "weak": false
+                    }
+                }
+            }
+            // Diğer haftalar da benzer şekilde eklenebilir
+        };
+
+        // 6 aylık plan - TAM 6 AY
+        const sixMonthPlan = {
+            "1. Ay": {
+                "TYT Matematik": ["Sayılar", "Üslü-Köklü Sayılar", "Oran-Orantı"],
+                "AYT Matematik": ["Temel Kavramlar", "İspat Yöntemleri", "Fonksiyonlara Giriş"],
+                "TYT Türkçe": ["Sözcükte Anlam", "Cümlede Anlam", "Paragraf"],
+                "TYT Fizik": ["Fizik Bilimine Giriş", "Madde ve Özellikleri"],
+                "TYT Kimya": ["Kimya Bilimine Giriş", "Atom ve Periyodik Sistem"],
+                "Testler": ["Okyanus 40 Seans 1-10", "Limit Türkçe Test 1-5"],
+                "Okuma Kitapları": ["Kürk Mantolu Madonna", "Atomik Alışkanlıklar"]
+            },
+            "2. Ay": {
+                "TYT Matematik": ["Denklemler", "Eşitsizlikler", "Problemler"],
+                "AYT Matematik": ["Fonksiyonlar", "Limit", "Türev Giriş"],
+                "TYT Türkçe": ["Ses Bilgisi", "Yazım Kuralları", "Noktalama"],
+                "TYT Kimya": ["Kimyanın Temel Kanunları", "Mol Kavramı"],
+                "TYT Biyoloji": ["Biyoloji Bilimi", "Canlıların Temel Bileşenleri"],
+                "Testler": ["Bilgi Sarmal Matematik 11-20", "Palme Fizik Test 4-8"],
+                "Okuma Kitapları": ["Serenad", "Beyaz Zambaklar Ülkesinde"]
+            },
+            "3. Ay": {
+                "TYT Matematik": ["Fonksiyonlar", "Polinomlar", "Çarpanlara Ayırma"],
+                "AYT Matematik": ["Türev", "İntegral", "Limit Uygulamaları"],
+                "TYT Geometri": ["Doğruda Açılar", "Üçgende Açılar", "Üçgende Benzerlik"],
+                "AYT Fizik": ["Vektörler", "Kuvvet ve Hareket", "Enerji"],
+                "AYT Kimya": ["Gazlar", "Çözeltiler", "Kimyasal Tepkimeler"],
+                "Testler": ["Acil Matematik Problemler 20-30", "Çap Yayınları Fizik Test 5-10"],
+                "Okuma Kitapları": ["İnce Memed", "İknanın Psikolojisi"]
+            },
+            "4. Ay": {
+                "TYT Matematik": ["Olasılık", "İstatistik", "Trigonometri"],
+                "AYT Matematik": ["Trigonometri", "Logaritma", "Diziler"],
+                "AYT Fizik": ["Elektrik ve Manyetizma", "Dalgalar", "Optik"],
+                "AYT Kimya": ["Organik Kimya", "Kimya ve Enerji", "Kimya Her Yerde"],
+                "AYT Biyoloji": ["Hücre Bölünmeleri", "Kalıtım", "Ekosistem Ekolojisi"],
+                "Testler": ["Kafa Dengi Paragraf 15-25", "Oxford Practice Grammar Test 10-15"],
+                "Okuma Kitapları": ["Fareler ve İnsanlar", "7 Etkili İnsan Alışkanlığı"]
+            },
+            "5. Ay": {
+                "TYT Matematik": ["Kümeler", "Mantık", "Modüler Aritmetik"],
+                "AYT Matematik": ["Logaritma", "Diziler", "Seriler"],
+                "AYT Fizik": ["Dalgalar", "Atom Fiziği", "Modern Fizik"],
+                "AYT Kimya": ["Organik Kimya", "Endüstride ve Canlılarda Enerji", "Kimya Her Yerde"],
+                "AYT Biyoloji": ["Canlılar ve Çevre", "Genden Proteine", "Biyoteknoloji"],
+                "Testler": ["Cambridge English Advanced 5-10", "LeetCode Medium Problems"],
+                "Okuma Kitapları": ["Kuyucaklı Yusuf", "Büyük Düşünmenin Büyüsü"]
+            },
+            "6. Ay": {
+                "TYT/AYT": ["Genel Tekrar", "Deneme Çözümleri", "Eksik Tamamlama"],
+                "Testler": ["TYT Denemeleri 1-5", "AYT Denemeleri 1-3", "IELTS Practice Tests"],
+                "Okuma Kitapları": ["Dönüşüm", "To Kill a Mockingbird"]
+            }
+        };
+
+        // Kitap verileri - SAYFA 1'DEN BAŞLIYOR
+        let books = {
+            "atomicHabits": {
+                title: "Atomik Alışkanlıklar - James Clear",
+                currentPage: 1,
+                totalPages: 248,
+                progress: 0
+            },
+            "madonna": {
+                title: "Kürk Mantolu Madonna - Sabahattin Ali",
+                currentPage: 1,
+                totalPages: 160,
+                progress: 0
+            }
+        };
+
+        // Zayıf konular
+        let weakTopics = [];
+
+        // Su takip sistemi
+        let waterConsumed = 0;
+        const waterTarget = 2500; // 2.5 litre
+        
+        const waterLevel = document.getElementById('waterLevel');
+        const waterAmount = document.getElementById('waterAmount');
+        const addWaterBtn = document.getElementById('addWater');
+        
+        // Su seviyesini güncelle
+        function updateWaterDisplay() {
+            const percentage = (waterConsumed / waterTarget) * 100;
+            waterLevel.style.height = `${Math.min(percentage, 100)}%`;
+            waterAmount.textContent = `${waterConsumed} / ${waterTarget} ml`;
+            
+            // Su zamanlarını güncelle
+            document.getElementById('morningWater').classList.toggle('active', waterConsumed >= 500);
+            document.getElementById('noonWater').classList.toggle('active', waterConsumed >= 1500);
+            document.getElementById('eveningWater').classList.toggle('active', waterConsumed >= 2500);
+        }
+        
+        // Su ekleme butonu
+        addWaterBtn.addEventListener('click', function() {
+            if (waterConsumed < waterTarget) {
+                waterConsumed += 250;
+                updateWaterDisplay();
+                
+                // Hedefe ulaşıldı mı?
+                if (waterConsumed >= waterTarget) {
+                    alert('Tebrikler! Bugünkü su hedefinize ulaştınız! 🎉');
+                }
+            } else {
+                alert('Bugünkü su hedefinizi zaten tamamladınız!');
+            }
+        });
+        
+        // Egzersiz takip sistemi
+        let exerciseCount = 0;
+        const exerciseTarget = 100;
+        const exerciseCircle = document.getElementById('exerciseCircle');
+        const exerciseCountDisplay = document.getElementById('exerciseCount');
+        const addExerciseBtn = document.getElementById('addExercise');
+        const resetExerciseBtn = document.getElementById('resetExercise');
+        
+        // Egzersiz görselini güncelle
+        function updateExerciseDisplay() {
+            const percentage = (exerciseCount / exerciseTarget) * 100;
+            exerciseCircle.style.background = `conic-gradient(var(--accent) ${percentage}%, #e0e0e0 ${percentage}%)`;
+            exerciseCountDisplay.textContent = exerciseCount;
+        }
+        
+        // Egzersiz ekleme butonu
+        addExerciseBtn.addEventListener('click', function() {
+            if (exerciseCount < exerciseTarget) {
+                exerciseCount += 10;
+                if (exerciseCount > exerciseTarget) exerciseCount = exerciseTarget;
+                updateExerciseDisplay();
+                
+                // Hedefe ulaşıldı mı?
+                if (exerciseCount >= exerciseTarget) {
+                    alert('Tebrikler! Bugünkü egzersiz hedefinize ulaştınız! 💪');
+                }
+            } else {
+                alert('Bugünkü egzersiz hedefinizi zaten tamamladınız!');
+            }
+        });
+        
+        // Egzersiz sıfırlama butonu
+        resetExerciseBtn.addEventListener('click', function() {
+            exerciseCount = 0;
+            updateExerciseDisplay();
+        });
+        
+        // Kitap okuma işlevleri
+        function updateBookProgress(bookId, pagesToAdd) {
+            if (books[bookId].currentPage < books[bookId].totalPages) {
+                books[bookId].currentPage += pagesToAdd;
+                if (books[bookId].currentPage > books[bookId].totalPages) {
+                    books[bookId].currentPage = books[bookId].totalPages;
+                }
+                
+                books[bookId].progress = (books[bookId].currentPage / books[bookId].totalPages) * 100;
+                
+                // Görseli güncelle
+                document.getElementById(`${bookId}Progress`).style.width = `${books[bookId].progress}%`;
+                document.getElementById(`${bookId}Status`).textContent = 
+                    `Sayfa ${books[bookId].currentPage}/${books[bookId].totalPages} (%${Math.round(books[bookId].progress)})`;
+                
+                // Kitap tamamlandı mı?
+                if (books[bookId].currentPage >= books[bookId].totalPages) {
+                    alert(`Tebrikler! "${books[bookId].title}" kitabını tamamladınız! 📚`);
+                }
+            } else {
+                alert('Bu kitabı zaten tamamladınız! Yeni bir kitap ekleyin.');
+            }
+        }
+        
+        // Kitap okuma butonları
+        document.getElementById('readAtomicHabits').addEventListener('click', function() {
+            updateBookProgress('atomicHabits', 10);
+        });
+        
+        document.getElementById('readMadonna').addEventListener('click', function() {
+            updateBookProgress('madonna', 10);
+        });
+        
+        // Tab sistemini yönet
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Tüm tabları ve içerikleri deaktif et
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                // Seçilen tabı ve içeriği aktif et
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Eğer çalışma planı tab'ı seçildiyse, aylık planı oluştur
+                if (tabId === 'study-plan') {
+                    generateMonthlyPlan();
+                }
+                
+                // Eğer analiz tab'ı seçildiyse, zayıf konuları ve grafiği güncelle
+                if (tabId === 'analysis') {
+                    updateWeakTopicsList();
+                    updatePerformanceChart();
+                }
+            });
+        });
+        
+        // Bugünkü çalışma planını oluştur
+        function generateTodayPlan() {
+            const todayPlanContainer = document.getElementById('todayPlan');
+            todayPlanContainer.innerHTML = '';
+            
+            // Örnek olarak 1. haftayı gösteriyoruz
+            const week = studyPlan["1"];
+            
+            for (const subject in week.subjects) {
+                const subjectData = week.subjects[subject];
+                const studyItem = document.createElement('div');
+                
+                let itemClass = 'study-item';
+                if (subjectData.completed) itemClass += ' completed';
+                if (subjectData.weak) itemClass += ' weak-topic';
+                
+                studyItem.className = itemClass;
+                studyItem.setAttribute('data-subject', subject);
+                studyItem.setAttribute('data-week', '1');
+                
+                studyItem.innerHTML = `
+                    <h3>${subject}</h3>
+                    <p>${subjectData.topic}</p>
+                    <small>${subjectData.completed ? 'Tamamlandı' : (subjectData.weak ? 'Zayıf Konu' : 'Devam Ediyor')}</small>
+                `;
+                
+                studyItem.addEventListener('click', () => {
+                    openStudyDetailModal(subject, '1');
+                });
+                
+                todayPlanContainer.appendChild(studyItem);
+            }
+        }
+        
+        // Aylık planı oluştur
+        function generateMonthlyPlan() {
+            const monthlyPlanContainer = document.getElementById('monthlyPlan');
+            monthlyPlanContainer.innerHTML = '';
+            
+            for (const month in sixMonthPlan) {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month';
+                
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+                monthHeader.textContent = month;
+                
+                const monthContent = document.createElement('div');
+                monthContent.className = 'month-content';
+                
+                const subjects = sixMonthPlan[month];
+                for (const subject in subjects) {
+                    if (subject === "Testler" || subject === "Okuma Kitapları") continue;
+                    
+                    const weekDiv = document.createElement('div');
+                    weekDiv.className = 'week';
+                    
+                    const weekHeader = document.createElement('div');
+                    weekHeader.className = 'week-header';
+                    weekHeader.textContent = subject;
+                    
+                    const dayPlan = document.createElement('div');
+                    dayPlan.className = 'day-plan';
+                    
+                    subjects[subject].forEach(topic => {
+                        const dayItem = document.createElement('div');
+                        dayItem.className = 'day-item';
+                        dayItem.textContent = topic;
+                        dayPlan.appendChild(dayItem);
+                    });
+                    
+                    weekDiv.appendChild(weekHeader);
+                    weekDiv.appendChild(dayPlan);
+                    monthContent.appendChild(weekDiv);
+                }
+                
+                // Testler bölümü
+                if (subjects["Testler"]) {
+                    const testDiv = document.createElement('div');
+                    testDiv.className = 'week';
+                    
+                    const testHeader = document.createElement('div');
+                    testHeader.className = 'week-header';
+                    testHeader.textContent = "Testler";
+                    
+                    subjects["Testler"].forEach(test => {
+                        const testItem = document.createElement('div');
+                        testItem.className = 'test-item';
+                        testItem.textContent = test;
+                        testDiv.appendChild(testItem);
+                    });
+                    
+                    monthContent.appendChild(testDiv);
+                }
+                
+                // Okuma Kitapları bölümü
+                if (subjects["Okuma Kitapları"]) {
+                    const readingDiv = document.createElement('div');
+                    readingDiv.className = 'week';
+                    
+                    const readingHeader = document.createElement('div');
+                    readingHeader.className = 'week-header';
+                    readingHeader.textContent = "Okuma Kitapları";
+                    
+                    subjects["Okuma Kitapları"].forEach(book => {
+                        const readingItem = document.createElement('div');
+                        readingItem.className = 'reading-item';
+                        readingItem.textContent = book;
+                        readingDiv.appendChild(readingItem);
+                    });
+                    
+                    monthContent.appendChild(readingDiv);
+                }
+                
+                monthDiv.appendChild(monthHeader);
+                monthDiv.appendChild(monthContent);
+                monthlyPlanContainer.appendChild(monthDiv);
+            }
+        }
+        
+        // Zayıf konular listesini güncelle
+        function updateWeakTopicsList() {
+            const weakTopicsList = document.getElementById('weakTopicsList');
+            weakTopicsList.innerHTML = '';
+            
+            if (weakTopics.length === 0) {
+                weakTopicsList.innerHTML = '<p>Henüz zayıf konu eklenmemiş.</p>';
+                return;
+            }
+            
+            weakTopics.forEach(topic => {
+                const topicItem = document.createElement('div');
+                topicItem.className = 'weak-topic-item';
+                topicItem.innerHTML = `
+                    <div>
+                        <strong>${topic.name}</strong>
+                        <div>${topic.subject} • ${topic.dateAdded}</div>
+                    </div>
+                    <div class="weak-topic-actions">
+                        <button class="btn btn-success" data-id="${topic.id}"><i class="fas fa-check"></i> Çözüldü</button>
+                        <button class="btn btn-purple" data-id="${topic.id}"><i class="fas fa-robot"></i> Özet Oluştur</button>
+                    </div>
+                `;
+                
+                weakTopicsList.appendChild(topicItem);
+            });
+            
+            // Özet oluştur butonlarına event listener ekle
+            document.querySelectorAll('.weak-topic-actions .btn-purple').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const topicId = this.getAttribute('data-id');
+                    const topic = weakTopics.find(t => t.id == topicId);
+                    if (topic) {
+                        generateTopicSummary(topic.name);
+                    }
+                });
+            });
+            
+            // Çözüldü butonlarına event listener ekle
+            document.querySelectorAll('.weak-topic-actions .btn-success').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const topicId = this.getAttribute('data-id');
+                    weakTopics = weakTopics.filter(t => t.id != topicId);
+                    updateWeakTopicsList();
+                });
+            });
+        }
+        
+        // Konu özeti oluştur
+        function generateTopicSummary(topicName) {
+            const summaryContent = document.getElementById('summaryContent');
+            summaryContent.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> AI konu özeti oluşturuyor...</p>';
+            
+            // Gerçek bir API entegrasyonu için bu kısım değiştirilecek
+            setTimeout(() => {
+                let summary = '';
+                
+                if (topicName.includes('Üslü') || topicName.includes('Köklü')) {
+                    summary = `
+                        <h3>${topicName} Konu Özeti</h3>
+                        <p><strong>Tanım:</strong> Üslü sayılar, bir sayının kendisiyle çarpılma sayısını ifade eder. Köklü sayılar ise bir sayının hangi sayının karesi olduğunu bulmaktır.</p>
+                        <h4>Önemli Kurallar:</h4>
+                        <ul>
+                            <li>a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup></li>
+                            <li>(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup></li>
+                            <li>√a · √b = √(a·b)</li>
+                            <li>√a / √b = √(a/b)</li>
+                        </ul>
+                        <h4>Çözüm Teknikleri:</h4>
+                        <p>1. Üslü ifadelerde tabanlar aynı ise üsler toplanır veya çıkarılır.</p>
+                        <p>2. Köklü ifadelerde içler çarpılır veya bölünür.</p>
+                        <p>3. Payda köklü ifade varsa eşlenik ile çarpılarak kökten kurtulunur.</p>
+                        <h4>Örnek Soru:</h4>
+                        <p>2<sup>3</sup> · 2<sup>4</sup> = 2<sup>7</sup> = 128</p>
+                        <p>√12 · √3 = √36 = 6</p>
+                    `;
+                } else if (topicName.includes('Organik Kimya')) {
+                    summary = `
+                        <h3>${topicName} Konu Özeti</h3>
+                        <p><strong>Tanım:</strong> Organik kimya, karbon bileşiklerini inceleyen kimya dalıdır.</p>
+                        <h4>Hidrokarbonlar:</h4>
+                        <ul>
+                            <li>Alkanlar: Doymuş, tekli bağ</li>
+                            <li>Alkenler: Doymamış, en az bir çift bağ</li>
+                            <li>Alkinler: Doymamış, en az bir üçlü bağ</li>
+                        </ul>
+                        <h4>Fonksiyonel Gruplar:</h4>
+                        <ul>
+                            <li>Alkol: -OH</li>
+                            <li>Aldehit: -CHO</li>
+                            <li>Keton: -CO-</li>
+                            <li>Asit: -COOH</li>
+                        </ul>
+                        <h4>İzomerlik:</h4>
+                        <p>Aynı molekül formülüne sahip farklı bileşikler.</p>
+                        <ul>
+                            <li>Yapı izomerleri</li>
+                            <li>Stereoiizomerler</li>
+                        </ul>
+                    `;
+                } else {
+                    summary = `
+                        <h3>${topicName} Konu Özeti</h3>
+                        <p>Bu konu için AI destekli özet oluşturuluyor...</p>
+                        <p><strong>Önemli Noktalar:</strong></p>
+                        <ul>
+                            <li>Konunun temel tanımlarını iyi öğrenin</li>
+                            <li>Formülleri ve kuralları ezberlemek yerine anlamaya çalışın</li>
+                            <li>Bol bol pratik yapın ve farklı soru tiplerini çözün</li>
+                            <li>Zorlandığınız noktaları not alın ve tekrar edin</li>
+                        </ul>
+                        <p><em>Not: Gerçek bir uygulamada bu özet Gemini API kullanılarak oluşturulacaktır.</em></p>
+                    `;
+                }
+                
+                summaryContent.innerHTML = summary;
+            }, 1500);
+        }
+        
+        // Performans grafiğini güncelle
+        function updatePerformanceChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            // Eski chart'ı temizle
+            if (window.performanceChartInstance) {
+                window.performanceChartInstance.destroy();
+            }
+            
+            window.performanceChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Matematik', 'Türkçe', 'Fizik', 'Kimya', 'Biyoloji', 'Tarih'],
+                    datasets: [{
+                        label: 'Doğru Sayısı',
+                        data: [0, 0, 0, 0, 0, 0],
+                        backgroundColor: '#4a6fa5'
+                    }, {
+                        label: 'Yanlış Sayısı',
+                        data: [0, 0, 0, 0, 0, 0],
+                        backgroundColor: '#ff7e5f'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Soru Sayısı'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Modal işlevselliği
+        const modal = document.getElementById('studyDetailModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        const markCompleteBtn = document.getElementById('markComplete');
+        
+        const weakTopicModal = document.getElementById('weakTopicModal');
+        const closeWeakTopicModal = document.getElementById('closeWeakTopicModal');
+        const addWeakTopicBtn = document.getElementById('addWeakTopic');
+        const saveWeakTopicBtn = document.getElementById('saveWeakTopic');
+        
+        let currentSubject = '';
+        let currentWeek = '';
+        
+        // Çalışma detay modalını aç
+        function openStudyDetailModal(subject, week) {
+            currentSubject = subject;
+            currentWeek = week;
+            
+            const subjectData = studyPlan[week].subjects[subject];
+            
+            modalTitle.textContent = `${subject} - ${subjectData.topic}`;
+            
+            let contentHTML = `
+                <p><strong>Konu:</strong> ${subjectData.topic}</p>
+                <p><strong>Kitap:</strong> ${subjectData.book}</p>
+            `;
+            
+            if (subjectData.tests) {
+                contentHTML += `
+                    <div class="resources">
+                        <h3>Testler:</h3>
+                        <ul>
+                            ${subjectData.tests.map(test => `<li>${test}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            if (subjectData.reading) {
+                contentHTML += `
+                    <div class="resources">
+                        <h3>Okuma:</h3>
+                        <p>${subjectData.reading}</p>
+                    </div>
+                `;
+            }
+            
+            if (subjectData.videos) {
+                contentHTML += `
+                    <div class="resources">
+                        <h3>Önerilen Videolar:</h3>
+                        <ul>
+                            ${subjectData.videos.map(video => `<li>${video}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            contentHTML += `
+                <div class="reminder">
+                    <p><strong>Önerilen Çalışma Süresi:</strong> 45-60 dakika</p>
+                    <p><strong>Önerilen Tekrar:</strong> Konuyu tamamladıktan sonra 24 saat içinde kısa tekrar yapın</p>
+                </div>
+            `;
+            
+            modalContent.innerHTML = contentHTML;
+            
+            markCompleteBtn.textContent = subjectData.completed ? 'Tamamlandı' : 'Tamamlandı Olarak İşaretle';
+            markCompleteBtn.disabled = subjectData.completed;
+            
+            modal.classList.add('active');
+        }
+        
+        // Modalı kapat
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+        
+        closeWeakTopicModal.addEventListener('click', () => {
+            weakTopicModal.classList.remove('active');
+        });
+        
+        // Zayıf konu ekle modalını aç
+        addWeakTopicBtn.addEventListener('click', () => {
+            weakTopicModal.classList.add('active');
+        });
+        
+        // Zayıf konu kaydet
+        saveWeakTopicBtn.addEventListener('click', () => {
+            const topicName = document.getElementById('weakTopicName').value;
+            const topicSubject = document.getElementById('weakTopicSubject').value;
+            
+            if (topicName.trim() === '') {
+                alert('Lütfen bir konu adı girin.');
+                return;
+            }
+            
+            const newTopic = {
+                id: weakTopics.length + 1,
+                name: topicName,
+                subject: document.getElementById('weakTopicSubject').options[document.getElementById('weakTopicSubject').selectedIndex].text,
+                dateAdded: new Date().toISOString().split('T')[0]
+            };
+            
+            weakTopics.push(newTopic);
+            updateWeakTopicsList();
+            
+            document.getElementById('weakTopicName').value = '';
+            weakTopicModal.classList.remove('active');
+            
+            alert('Zayıf konu başarıyla eklendi!');
+        });
+        
+        // Tamamlandı olarak işaretle
+        markCompleteBtn.addEventListener('click', () => {
+            studyPlan[currentWeek].subjects[currentSubject].completed = true;
+            markCompleteBtn.disabled = true;
+            markCompleteBtn.textContent = 'Tamamlandı';
+            
+            // İlerleme çubuklarını güncelle
+            updateProgressBars();
+            
+            // Bugünkü planı yeniden oluştur
+            generateTodayPlan();
+            
+            alert('Tebrikler! Bu konuyu tamamladınız. 🎉');
+        });
+        
+        // Konu özeti oluştur butonu
+        document.getElementById('generateSummary').addEventListener('click', function() {
+            const topicSelect = document.getElementById('topicSelect');
+            const selectedTopic = topicSelect.options[topicSelect.selectedIndex].text;
+            
+            if (selectedTopic === 'Bir konu seçin') {
+                alert('Lütfen bir konu seçin.');
+                return;
+            }
+            
+            generateTopicSummary(selectedTopic);
+        });
+        
+        // İlerleme çubuklarını güncelle
+        function updateProgressBars() {
+            // Basit bir ilerleme hesaplama (gerçek uygulamada daha karmaşık olabilir)
+            let completedCount = 0;
+            let totalCount = 0;
+            
+            for (const week in studyPlan) {
+                for (const subject in studyPlan[week].subjects) {
+                    totalCount++;
+                    if (studyPlan[week].subjects[subject].completed) {
+                        completedCount++;
+                    }
+                }
+            }
+            
+            const progressPercentage = (completedCount / totalCount) * 100;
+            
+            document.getElementById('overallProgress').style.width = `${progressPercentage}%`;
+            document.getElementById('overallProgressText').textContent = `${Math.round(progressPercentage)}% tamamlandı`;
+        }
+        
+        // Günün saatine göre hatırlatmalar
+        function showTimeBasedReminders() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            
+            if (currentHour >= 6 && currentHour < 10) {
+                // Sabah
+                showNotification("Sabah esneme zamanı! 2 dakika ayak esnetmesi yapın.");
+            } else if (currentHour >= 12 && currentHour < 14) {
+                // Öğle
+                showNotification("Öğle esneme zamanı! 2 dakika ayak esnetmesi yapın ve su için.");
+            } else if (currentHour >= 18 && currentHour < 20) {
+                // Akşam
+                showNotification("Akşam esneme zamanı! 2 dakika ayak esnetmesi yapın.");
+            }
+            
+            // Su hatırlatması (eğer yeterince su içilmemişse)
+            if (waterConsumed < 1500 && currentHour >= 16) {
+                showNotification(`Bugün sadece ${waterConsumed} ml su içtiniz. Hedef 2500 ml!`);
+            }
+            
+            // Egzersiz hatırlatması
+            if (exerciseCount < 50 && currentHour >= 18) {
+                showNotification(`Bugün sadece ${exerciseCount} elmas şınav çektiniz. Hedef 100!`);
+            }
+        }
+        
+        function showNotification(message) {
+            // Basit bir bildirim gösterimi
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--accent);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // 5 saniye sonra bildirimi kaldır
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
+        // İlk yükleme
+        updateWaterDisplay();
+        updateExerciseDisplay();
+        generateTodayPlan();
+        generateMonthlyPlan();
+        updateProgressBars();
+        updateWeakTopicsList();
+        showTimeBasedReminders();
+        
+        // Her saat başı hatırlatmaları kontrol et
+        setInterval(showTimeBasedReminders, 60 * 60 * 1000);
+    </script>
+</body>
+</html>
