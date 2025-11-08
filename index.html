@@ -896,6 +896,242 @@
             padding-bottom: 5px;
         }
         
+        /* RAG Özel Stilleri */
+        .rag-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .rag-header h4 {
+            margin: 0;
+            color: white;
+        }
+        
+        .query-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .rag-sources {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .source-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .source-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .source-topic {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .similarity-badge {
+            background: var(--success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        .source-subject {
+            font-size: 0.85rem;
+            color: var(--dark);
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+        
+        .source-content {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .source-examples {
+            margin-top: 8px;
+            padding: 8px;
+            background: var(--light);
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .youtube-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .youtube-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .youtube-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .youtube-thumbnail {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+        }
+        
+        .youtube-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,0,0,0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .youtube-info {
+            padding: 15px;
+        }
+        
+        .youtube-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .youtube-channel {
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+        
+        .youtube-description {
+            font-size: 0.85rem;
+            color: var(--dark);
+            opacity: 0.8;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .youtube-link {
+            display: inline-block;
+            background: #ff0000;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .youtube-link:hover {
+            background: #cc0000;
+        }
+        
+        .feedback-section {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+        }
+        
+        .feedback-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .feedback-btn {
+            padding: 8px 20px;
+        }
+        
+        .error-message {
+            background: #ffebee;
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .solution-tips {
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        .no-sources {
+            background: #fff3e0;
+            border: 1px solid var(--warning);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .loading-indicator {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-steps {
+            margin-top: 15px;
+            text-align: left;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .loading-steps div {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .current-step {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
         footer {
             text-align: center;
             margin-top: 40px;
@@ -943,6 +1179,19 @@
 
             .plan-subjects {
                 grid-template-columns: 1fr;
+            }
+            
+            .sources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .youtube-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feedback-buttons {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -1186,12 +1435,12 @@
                 </div>
 
                 <div class="ai-section">
-                    <h3><i class="fas fa-robot"></i> AI Asistan - Gemini 2.0 Flash + YouTube RAG</h3>
-                    <p>Anlamadığınız konuları sorun, AI size hem açıklasın hem de YouTube'dan ilgili videoları bulsun!</p>
+                    <h3><i class="fas fa-robot"></i> AI Asistan - Gemini 2.0 Flash + RAG Sistemi</h3>
+                    <p>Anlamadığınız konuları sorun, RAG sistemi bilgi tabanını tarasın ve AI size detaylı açıklasın!</p>
                     
                     <div class="ai-mode-selector">
                         <div class="ai-mode-btn active" data-mode="gemini">Sadece Gemini</div>
-                        <div class="ai-mode-btn" data-mode="rag">Gemini + YouTube</div>
+                        <div class="ai-mode-btn" data-mode="rag">Gemini + RAG</div>
                     </div>
                     
                     <div class="ai-input">
@@ -1206,7 +1455,7 @@
                     </div>
                     
                     <div style="margin-top: 15px; font-size: 0.8rem; color: #666;">
-                        <p><strong>API Durumu:</strong> <span id="apiStatus" style="color: var(--success);">✓ Gemini 2.0 Flash Aktif - YouTube RAG Hazır</span></p>
+                        <p><strong>API Durumu:</strong> <span id="apiStatus" style="color: var(--success);">✓ Gemini 2.0 Flash Aktif - RAG Sistemi Hazır</span></p>
                     </div>
                 </div>
             </div>
@@ -1270,10 +1519,10 @@
     </footer>
 
     <script>
-        // API KEY - Gemini 2.0 Flash için güncellendi
+        // API KEY - Gemini 2.0 Flash için
         const GEMINI_API_KEY = "AIzaSyDhBnVQde4hHvDT-ira2AXCQA_Fiog4aTI";
         
-        // YouTube API Key (Buraya kendi YouTube API key'inizi ekleyin)
+        // YouTube API Key
         const YOUTUBE_API_KEY = "AIzaSyB-d8G2GvFXcs9oBYTOy2sZXH8JMXlJ84A";
         
         // Çalışma planı verileri
@@ -1357,10 +1606,191 @@
             }
         };
 
-        // YENİ ANALİZ SİSTEMİ VERİLERİ
+        // ANALİZ SİSTEMİ VERİLERİ
         let examResults = [];
         let weakTopics = [];
         let currentAIMode = "gemini";
+
+        // RAG Sistemi için Gerekli Değişkenler
+        let knowledgeBase = [];
+        let vectorDB = [];
+
+        // Genişletilmiş TYT-AYT Bilgi Tabanı
+        const studyKnowledgeBase = [
+            {
+                id: 1,
+                topic: "Türev",
+                content: "Türev, bir fonksiyonun belirli bir noktadaki anlık değişim oranını ifade eder. Matematiksel olarak, fonksiyonun bir noktadaki eğimine eşittir. f'(x) = lim(h→0) [f(x+h) - f(x)]/h şeklinde tanımlanır. Türev alma kuralları: Sabit fonksiyonun türevi 0, x^n fonksiyonunun türevi n*x^(n-1), toplamın türevi türevlerin toplamıdır. Türev uygulamaları: Maksimum-minimum problemleri, grafik çizimi, fizikte hız ve ivme hesaplamaları.",
+                subject: "AYT Matematik",
+                tags: ["türev", "limit", "değişim oranı", "maksimum minimum"],
+                difficulty: "Orta",
+                examples: ["f(x)=x² fonksiyonunun türevi f'(x)=2x", "f(x)=3x³-2x fonksiyonunun türevi f'(x)=9x²-2"]
+            },
+            {
+                id: 2,
+                topic: "Integral",
+                content: "Integral, türevin ters işlemi olup bir fonksiyonun altında kalan alanı hesaplamak için kullanılır. Belirsiz integral: ∫f(x)dx = F(x) + C, belirli integral: ∫[a,b] f(x)dx = F(b) - F(a). Temel integral alma yöntemleri: Değişken değiştirme, kısmi integrasyon, basit kesirlere ayırma. İntegral uygulamaları: Alan hesabı, hacim hesabı, iş ve enerji hesaplamaları.",
+                subject: "AYT Matematik",
+                tags: ["integral", "alan", "türev tersi", "integral yöntemleri"],
+                difficulty: "Zor",
+                examples: ["∫2x dx = x² + C", "∫[0,1] x dx = 1/2"]
+            },
+            {
+                id: 3,
+                topic: "Trigonometri",
+                content: "Trigonometrik fonksiyonlar: sin, cos, tan, cot. Temel özdeşlikler: sin²x + cos²x = 1, 1 + tan²x = sec²x, 1 + cot²x = csc²x. Toplam-fark formülleri: sin(a+b) = sina cosb + cosa sinb, cos(a+b) = cosa cosb - sina sinb. Trigonometrik denklemler: sinx = a, cosx = a şeklindeki denklemlerin çözümü.",
+                subject: "TYT Matematik",
+                tags: ["trigonometri", "sinüs", "cosinüs", "trigonometrik özdeşlikler"],
+                difficulty: "Orta",
+                examples: ["sin30° = 1/2", "cos60° = 1/2", "sin²x + cos²x = 1"]
+            },
+            {
+                id: 4,
+                topic: "Organik Kimya",
+                content: "Organik kimya, karbon bileşiklerini inceleyen kimya dalıdır. Hidrokarbonlar: Alkanlar (doymuş, tekli bağ), Alkenler (doymamış, çift bağ), Alkinler (doymamış, üçlü bağ). Fonksiyonel gruplar: Alkol (-OH), Aldehit (-CHO), Keton (-CO-), Karboksilik asit (-COOH). İzomerlik: Aynı molekül formülüne sahip farklı bileşikler. Yapı izomerleri, stereoiizomerler.",
+                subject: "AYT Kimya",
+                tags: ["organik kimya", "hidrokarbonlar", "fonksiyonel gruplar", "izomerlik"],
+                difficulty: "Zor",
+                examples: ["Metan: CH4", "Etan: C2H6", "Eten: C2H4"]
+            },
+            {
+                id: 5,
+                topic: "Limit ve Süreklilik",
+                content: "Limit, bir fonksiyonun belirli bir noktaya yaklaşırken aldığı değerdir. lim(x→a) f(x) = L. Sağdan ve soldan limit. Süreklilik: Bir fonksiyonun bir noktada sürekli olması için o noktada limitinin olması ve fonksiyon değerine eşit olması gerekir. Limit kuralları: Toplam, fark, çarpım, bölüm limitleri. Belirsizlikler: 0/0, ∞/∞ belirsizlikleri ve çözüm yöntemleri.",
+                subject: "AYT Matematik",
+                tags: ["limit", "süreklilik", "belirsizlik", "sağdan soldan limit"],
+                difficulty: "Orta",
+                examples: ["lim(x→2) (x²-4)/(x-2) = 4", "lim(x→0) sinx/x = 1"]
+            }
+        ];
+
+        // Gelişmiş Embedding Sistemi
+        class RAGSystem {
+            constructor() {
+                this.knowledgeBase = [];
+                this.vectorDB = [];
+                this.isInitialized = false;
+            }
+
+            // Basit embedding oluşturma
+            async createEmbedding(text) {
+                const tokens = text.toLowerCase()
+                    .replace(/[^\w\s]/g, '')
+                    .split(/\s+/)
+                    .filter(token => token.length > 2);
+                
+                const uniqueTokens = [...new Set(tokens)];
+                const embedding = new Array(50).fill(0);
+                
+                uniqueTokens.forEach(token => {
+                    const hash = this.stringToHash(token);
+                    const index = hash % 50;
+                    embedding[index] += 1;
+                });
+                
+                return this.normalizeVector(embedding);
+            }
+
+            stringToHash(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                return Math.abs(hash);
+            }
+
+            normalizeVector(vector) {
+                const norm = Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
+                return norm === 0 ? vector : vector.map(val => val / norm);
+            }
+
+            // Cosine benzerliği hesaplama
+            cosineSimilarity(vecA, vecB) {
+                if (vecA.length !== vecB.length) return 0;
+                
+                let dotProduct = 0;
+                let normA = 0;
+                let normB = 0;
+                
+                for (let i = 0; i < vecA.length; i++) {
+                    dotProduct += vecA[i] * vecB[i];
+                    normA += vecA[i] * vecA[i];
+                    normB += vecB[i] * vecB[i];
+                }
+                
+                normA = Math.sqrt(normA);
+                normB = Math.sqrt(normB);
+                
+                return normA === 0 || normB === 0 ? 0 : dotProduct / (normA * normB);
+            }
+
+            // Bilgi tabanını indexleme
+            async indexKnowledgeBase() {
+                console.log('Bilgi tabanı indexleniyor...');
+                this.vectorDB = [];
+                
+                for (const item of studyKnowledgeBase) {
+                    const embedding = await this.createEmbedding(
+                        item.content + " " + item.topic + " " + item.tags.join(" ")
+                    );
+                    
+                    this.vectorDB.push({
+                        ...item,
+                        embedding: embedding
+                    });
+                }
+                
+                this.isInitialized = true;
+                console.log(`Bilgi tabanı indexlendi: ${this.vectorDB.length} bilgi parçacığı eklendi`);
+            }
+
+            // Bilgi retrieve etme
+            async retrieveKnowledge(query, topN = 3, similarityThreshold = 0.3) {
+                if (!this.isInitialized) {
+                    await this.indexKnowledgeBase();
+                }
+                
+                const queryEmbedding = await this.createEmbedding(query);
+                const similarities = [];
+                
+                for (const item of this.vectorDB) {
+                    const similarity = this.cosineSimilarity(queryEmbedding, item.embedding);
+                    
+                    if (similarity >= similarityThreshold) {
+                        similarities.push({
+                            ...item,
+                            similarity: similarity
+                        });
+                    }
+                }
+                
+                similarities.sort((a, b) => b.similarity - a.similarity);
+                return similarities.slice(0, topN);
+            }
+
+            // Bağlam oluşturma
+            async createContext(query, retrievedKnowledge) {
+                let context = "Aşağıdaki bilgileri kullanarak soruyu TYT-AYT sınavlarına hazırlanan bir öğrenciye anlatır gibi cevapla:\n\n";
+                
+                retrievedKnowledge.forEach((item, index) => {
+                    context += `Bilgi ${index + 1} (Konu: ${item.topic}, Ders: ${item.subject}, Benzerlik: ${item.similarity.toFixed(2)}):\n`;
+                    context += `${item.content}\n`;
+                    
+                    if (item.examples && item.examples.length > 0) {
+                        context += `Örnekler: ${item.examples.join(', ')}\n`;
+                    }
+                    
+                    context += `\n`;
+                });
+                
+                return context;
+            }
+        }
+
+        // RAG Sistemini Başlat
+        const ragSystem = new RAGSystem();
 
         // Su takip sistemi
         let waterConsumed = 0;
@@ -1543,7 +1973,7 @@
             });
         }
         
-        // YENİ ANALİZ SİSTEMİ FONKSİYONLARI
+        // ANALİZ SİSTEMİ FONKSİYONLARI
         
         document.getElementById('calculateTotal').addEventListener('click', function() {
             calculateTotalNet();
@@ -1688,22 +2118,30 @@
             });
         }
 
-        // AI SİSTEMİ FONKSİYONLARI - GEMINI 2.0 FLASH + YOUTUBE RAG
+        // RAG SİSTEMİ FONKSİYONLARI
         
         document.querySelectorAll('.ai-mode-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.ai-mode-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentAIMode = this.getAttribute('data-mode');
+                
+                const statusElement = document.getElementById('apiStatus');
+                if (currentAIMode === "rag") {
+                    statusElement.innerHTML = '<span style="color: var(--success);">✓ Gemini + RAG + YouTube Aktif</span>';
+                } else {
+                    statusElement.innerHTML = '<span style="color: var(--success);">✓ Gemini 2.0 Flash Aktif</span>';
+                }
             });
         });
 
         document.getElementById('askAI').addEventListener('click', function() {
-            askAI();
+            askAIWithRAG();
         });
 
-        async function askAI() {
-            const question = document.getElementById('aiQuestion').value;
+        // Geliştirilmiş AI Sorgulama Fonksiyonu
+        async function askAIWithRAG() {
+            const question = document.getElementById('aiQuestion').value.trim();
             const responseElement = document.getElementById('aiResponse');
             
             if (!question) {
@@ -1711,127 +2149,307 @@
                 return;
             }
             
-            responseElement.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> AI düşünüyor...</p>';
+            responseElement.innerHTML = `
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i> 
+                    <span>RAG sistemi çalışıyor...</span>
+                    <div class="loading-steps">
+                        <div>✓ Sistem başlatıldı</div>
+                        <div class="current-step">→ Bilgi tabanı taranıyor</div>
+                        <div>→ AI yanıtı oluşturuluyor</div>
+                        <div>→ YouTube önerileri alınıyor</div>
+                    </div>
+                </div>
+            `;
             
             try {
-                let aiResponse = '';
+                // 1. Bilgi Retrieve Etme
+                const retrievedKnowledge = await ragSystem.retrieveKnowledge(question, 3);
+                
+                // Loading güncelleme
+                responseElement.querySelector('.loading-steps').innerHTML = `
+                    <div>✓ Sistem başlatıldı</div>
+                    <div>✓ Bilgi tabanı taranıyor (${retrievedKnowledge.length} bilgi bulundu)</div>
+                    <div class="current-step">→ AI yanıtı oluşturuluyor</div>
+                    <div>→ YouTube önerileri alınıyor</div>
+                `;
+                
+                // 2. Context Oluşturma
+                const context = await ragSystem.createContext(question, retrievedKnowledge);
+                
+                // 3. Gemini API ile Zenginleştirilmiş Yanıt
+                const prompt = `${context}\n\nÖğrenci Sorusu: ${question}\n\nYanıtını şu şekilde yapılandır:
+1. Kısa ve net tanım
+2. Temel formüller ve kurallar
+3. Adım adım çözüm teknikleri
+4. Pratik ipuçları ve püf noktaları
+5. İlişkili konular ve bağlantılar
+6. Örnek soru çözümü (varsa)
+
+Cevabı öğrenci dostu ve anlaşılır bir dille ver.`;
+                
+                const geminiResponse = await callGeminiAPI(prompt);
+                
+                // Loading güncelleme
+                responseElement.querySelector('.loading-steps').innerHTML = `
+                    <div>✓ Sistem başlatıldı</div>
+                    <div>✓ Bilgi tabanı taranıyor (${retrievedKnowledge.length} bilgi bulundu)</div>
+                    <div>✓ AI yanıtı oluşturuluyor</div>
+                    <div class="current-step">→ YouTube önerileri alınıyor</div>
+                `;
+                
+                // 4. YouTube Önerileri
                 let youtubeResults = [];
-                
-                // Gemini 2.0 Flash API'yi çağır
-                const geminiResponse = await callGeminiAPI(question);
-                aiResponse = geminiResponse;
-                
-                // Eğer RAG modu aktifse, YouTube araması yap
                 if (currentAIMode === "rag") {
                     youtubeResults = await searchYouTubeVideos(question);
                 }
                 
-                // Yanıtı görüntüle
-                displayAIResponse(aiResponse, youtubeResults);
+                // 5. Yanıtı Görüntüleme
+                displayRAGResponse(geminiResponse, retrievedKnowledge, youtubeResults, question);
                 
             } catch (error) {
-                console.error('AI hatası:', error);
+                console.error('RAG hatası:', error);
                 responseElement.innerHTML = `
-                    <p style="color: var(--danger);">Hata: AI servisine bağlanılamadı.</p>
-                    <p>Olası nedenler:</p>
-                    <ul>
-                        <li>İnternet bağlantınızı kontrol edin</li>
-                        <li>API anahtarınız geçersiz olabilir</li>
-                        <li>API kotanız dolmuş olabilir</li>
-                    </ul>
-                    <p><strong>Demo Modu:</strong> ${question} konusu için detaylı açıklama burada görünecekti. API anahtarınız doğruysa bu özellik çalışacaktır.</p>
+                    <div class="error-message">
+                        <h4><i class="fas fa-exclamation-triangle"></i> RAG Sistemi Hatası</h4>
+                        <p>${error.message}</p>
+                        <div class="solution-tips">
+                            <p><strong>Çözüm Önerileri:</strong></p>
+                            <ul>
+                                <li>İnternet bağlantınızı kontrol edin</li>
+                                <li>API anahtarınızın geçerli olduğundan emin olun</li>
+                                <li>Sayfayı yeniden yüklemeyi deneyin</li>
+                            </ul>
+                        </div>
+                    </div>
                 `;
             }
         }
 
-        // Gemini 2.0 Flash API çağrısı - GÜNCELLENDİ
+        // Gemini 2.0 Flash API çağrısı
         async function callGeminiAPI(question) {
-            // Gemini 2.0 Flash için güncellenmiş endpoint
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: `Aşağıdaki konuyu TYT-AYT sınavlarına hazırlanan bir öğrenciye anlatır gibi basit, anlaşılır ve detaylı şekilde açıkla. Örneklerle destekle. Pratik çözüm teknikleri ver. Konu: ${question}`
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: question
+                            }]
                         }]
-                    }]
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error(`API hatası: ${response.status}`);
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API hatası: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error('Gemini API hatası:', error);
+                // Demo yanıtı döndür
+                return `
+**Demo Yanıtı:** Bu bir demo yanıtıdır. Gerçek API entegrasyonu ile daha detaylı bilgi alacaksınız.
+
+**Konu Açıklaması:**
+Sormuş olduğunuz konu hakkında detaylı bilgi burada yer alacak. RAG sistemi bilgi tabanını tarayarak en uygun içerikleri bulacak ve size sunacak.
+
+**Önemli Noktalar:**
+- Temel kavramlar ve tanımlar
+- Formüller ve kurallar
+- Çözüm teknikleri
+- Pratik ipuçları
+
+**Örnek Soru Çözümü:**
+Bu bölümde örnek bir soru ve adım adım çözümü yer alacak.
+
+*Not: Bu bir demo yanıtıdır. Gerçek API anahtarınızı kullanarak daha detaylı yanıtlar alabilirsiniz.*
+                `;
             }
-            
-            const data = await response.json();
-            return data.candidates[0].content.parts[0].text;
         }
 
         // YouTube video arama
         async function searchYouTubeVideos(query) {
-            // Gerçek YouTube API entegrasyonu için bu kısmı kullanabilirsiniz
-            // Şimdilik örnek veri döndürüyoruz
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    const sampleVideos = [
-                        {
-                            title: "TYT-AYT " + query + " Konu Anlatımı - Rehber Matematik",
-                            channel: "Rehber Matematik",
-                            description: query + " konusunun detaylı anlatımı ve soru çözüm teknikleri",
-                            videoId: "dQw4w9WgXcQ" // Örnek video ID
-                        },
-                        {
-                            title: query + " - Tüm Detaylarıyla Anlatım",
-                            channel: "Hocalara Geldik",
-                            description: query + " konusunu en basit şekilde öğrenin",
-                            videoId: "dQw4w9WgXcQ"
-                        },
-                        {
-                            title: "AYT " + query + " Soru Çözümü",
-                            channel: "Benim Hocam",
-                            description: query + " konusundan çıkmış sorular ve çözümleri",
-                            videoId: "dQw4w9WgXcQ"
-                        }
-                    ];
-                    resolve(sampleVideos);
-                }, 1000);
-            });
+            try {
+                // Gerçek YouTube API entegrasyonu
+                const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${encodeURIComponent(query + ' TYT AYT ders konu anlatım')}&type=video&key=${YOUTUBE_API_KEY}`;
+                
+                const response = await fetch(searchUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`YouTube API hatası: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                return data.items.map(item => ({
+                    title: item.snippet.title,
+                    channel: item.snippet.channelTitle,
+                    description: item.snippet.description,
+                    videoId: item.id.videoId,
+                    publishedAt: item.snippet.publishedAt
+                }));
+                
+            } catch (error) {
+                console.error('YouTube API hatası:', error);
+                // Fallback: Örnek veri döndür
+                return [
+                    {
+                        title: `${query} - TYT AYT Konu Anlatımı`,
+                        channel: "Rehber Matematik",
+                        description: `${query} konusunun detaylı anlatımı ve soru çözüm teknikleri`,
+                        videoId: "dQw4w9WgXcQ"
+                    },
+                    {
+                        title: `${query} Soru Çözümü ve Püf Noktalar`,
+                        channel: "Hocalara Geldik",
+                        description: `${query} konusundan çıkmış sorular ve pratik çözüm yöntemleri`,
+                        videoId: "dQw4w9WgXcQ"
+                    },
+                    {
+                        title: `${query} Kısa Tekrar ve Özet`,
+                        channel: "Benim Hocam",
+                        description: `${query} konusunun kısa tekrarı ve sınavda çıkabilecek püf noktalar`,
+                        videoId: "dQw4w9WgXcQ"
+                    }
+                ];
+            }
         }
 
-        // AI yanıtını görüntüle
-        function displayAIResponse(response, youtubeResults) {
+        // Geliştirilmiş Yanıt Görüntüleme
+        function displayRAGResponse(response, retrievedKnowledge, youtubeResults, originalQuestion) {
             const responseElement = document.getElementById('aiResponse');
             
             let formattedResponse = response
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n/g, '<br>');
+                .replace(/\n/g, '<br>')
+                .replace(/### (.*?)(?=\n|$)/g, '<h4>$1</h4>')
+                .replace(/## (.*?)(?=\n|$)/g, '<h3>$1</h3>');
             
-            let html = `<div class="ai-answer">${formattedResponse}</div>`;
+            let html = `
+                <div class="rag-header">
+                    <h4><i class="fas fa-robot"></i> RAG Destekli Yanıt</h4>
+                    <div class="query-info">Sorgu: "${originalQuestion}"</div>
+                </div>
+                <div class="ai-answer">
+                    ${formattedResponse}
+                </div>
+            `;
             
-            // Eğer YouTube sonuçları varsa ekle
+            // Retrieve Edilen Bilgileri Göster
+            if (retrievedKnowledge.length > 0) {
+                html += `
+                <div class="rag-sources">
+                    <h4><i class="fas fa-database"></i> Kullanılan Kaynaklar</h4>
+                    <div class="sources-grid">
+                `;
+                
+                retrievedKnowledge.forEach(item => {
+                    const similarityPercent = Math.round(item.similarity * 100);
+                    html += `
+                    <div class="source-item">
+                        <div class="source-header">
+                            <span class="source-topic">${item.topic}</span>
+                            <span class="similarity-badge">%${similarityPercent} eşleşme</span>
+                        </div>
+                        <div class="source-subject">${item.subject} • ${item.difficulty} Seviye</div>
+                        <div class="source-content">${item.content.substring(0, 120)}...</div>
+                        ${item.examples && item.examples.length > 0 ? 
+                            `<div class="source-examples"><strong>Örnekler:</strong> ${item.examples.slice(0, 2).join(', ')}</div>` : ''}
+                    </div>
+                    `;
+                });
+                
+                html += `</div></div>`;
+            } else {
+                html += `
+                <div class="no-sources">
+                    <p><i class="fas fa-info-circle"></i> Bu soru için bilgi tabanında yeterli kaynak bulunamadı.</p>
+                </div>
+                `;
+            }
+            
+            // YouTube Sonuçları
             if (youtubeResults && youtubeResults.length > 0) {
-                html += `<div class="youtube-results">
-                    <h4><i class="fab fa-youtube" style="color: #ff0000;"></i> Önerilen YouTube Videoları</h4>`;
+                html += `
+                <div class="youtube-results">
+                    <h4><i class="fab fa-youtube" style="color: #ff0000;"></i> Önerilen YouTube Videoları</h4>
+                    <div class="youtube-grid">
+                `;
                 
                 youtubeResults.forEach(video => {
                     html += `
                     <div class="youtube-item">
-                        <div class="youtube-title">${video.title}</div>
-                        <div class="youtube-channel">Kanal: ${video.channel}</div>
-                        <div class="youtube-description">${video.description}</div>
-                        <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank" class="search-result-link">
-                            <i class="fab fa-youtube"></i> Videoyu İzle
-                        </a>
-                    </div>`;
+                        <div class="youtube-thumbnail">
+                            <img src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg" alt="${video.title}">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                        <div class="youtube-info">
+                            <div class="youtube-title">${video.title}</div>
+                            <div class="youtube-channel">
+                                <i class="fas fa-user"></i> ${video.channel}
+                            </div>
+                            <div class="youtube-description">${video.description}</div>
+                            <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank" class="youtube-link">
+                                <i class="fab fa-youtube"></i> Videoyu İzle
+                            </a>
+                        </div>
+                    </div>
+                    `;
                 });
                 
-                html += `</div>`;
+                html += `</div></div>`;
             }
             
+            // Feedback Bölümü
+            html += `
+            <div class="feedback-section">
+                <p>Bu yanıt yardımcı oldu mu?</p>
+                <div class="feedback-buttons">
+                    <button class="btn btn-success feedback-btn" data-helpful="yes">
+                        <i class="fas fa-thumbs-up"></i> Evet
+                    </button>
+                    <button class="btn btn-danger feedback-btn" data-helpful="no">
+                        <i class="fas fa-thumbs-down"></i> Hayır
+                    </button>
+                </div>
+            </div>
+            `;
+            
             responseElement.innerHTML = html;
+            
+            // Feedback butonlarına event listener ekle
+            document.querySelectorAll('.feedback-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const isHelpful = this.getAttribute('data-helpful') === 'yes';
+                    handleFeedback(isHelpful, originalQuestion);
+                    this.innerHTML = isHelpful ? 
+                        '<i class="fas fa-check"></i> Teşekkürler!' : 
+                        '<i class="fas fa-times"></i> Bildirildi';
+                    this.disabled = true;
+                });
+            });
+        }
+
+        // Feedback İşleme
+        function handleFeedback(isHelpful, question) {
+            console.log(`Feedback: Soru "${question}" için ${isHelpful ? 'olumlu' : 'olumsuz'} geri bildirim`);
+            
+            // Burada feedback'i backend'e kaydedebilirsiniz
+            if (!isHelpful) {
+                // Olumsuz feedback durumunda kullanıcıdan ek bilgi iste
+                setTimeout(() => {
+                    const additionalFeedback = prompt('Yanıtın nasıl iyileştirilebileceği hakkında ek bilgi verebilir misiniz?');
+                    if (additionalFeedback) {
+                        console.log('Ek feedback:', additionalFeedback);
+                    }
+                }, 500);
+            }
         }
 
         // Modal işlevselliği
@@ -1947,8 +2565,13 @@
             updateExamList();
             updateWeakTopicsList();
             
+            // RAG sistemini başlat
+            ragSystem.indexKnowledgeBase().then(() => {
+                console.log('RAG sistemi hazır');
+            });
+            
             // API durumunu göster
-            document.getElementById('apiStatus').textContent = '✓ Gemini 2.0 Flash Aktif - YouTube RAG Hazır';
+            document.getElementById('apiStatus').textContent = '✓ Gemini 2.0 Flash Aktif - RAG Sistemi Hazır';
         });
     </script>
 </body>
