@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gelişmiş Çalışma ve Sağlık Takip Sistemi</title>
-    <meta http-equiv="refresh" content="0; url=calisma-takip-sistemi.html">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,28 +22,61 @@
             padding: 40px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
+            max-width: 600px;
         }
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4a6fa5;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background: #ff7e5f;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #ff6b4a;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🚀 Gelişmiş Çalışma ve Sağlık Takip Sistemi</h1>
-        <p>Yönlendiriliyorsunuz...</p>
-        <div class="loader"></div>
-        <p>Eğer yönlendirilmiyorsanız <a href="calisma-takip-sistemi.html" style="color: #ff7e5f; text-decoration: underline;">buraya tıklayın</a></p>
+        <p>TYT-AYT Uyumu • AI Destekli Analiz • Fiziksel Egzersiz • Kişisel Gelişim</p>
+        
+        <div class="features">
+            <div class="feature">📚 6 Aylık Plan</div>
+            <div class="feature">🤖 AI Analiz</div>
+            <div class="feature">💪 Egzersiz Takip</div>
+            <div class="feature">💧 Su Takibi</div>
+        </div>
+        
+        <a href="calisma-takip-sistemi.html" class="btn">Sisteme Giriş Yap</a>
+        
+        <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+            GitHub Pages ile barındırılmaktadır
+        </p>
     </div>
 </body>
 </html>
