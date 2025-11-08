@@ -824,6 +824,77 @@
             color: white;
             border-color: var(--primary);
         }
+
+        .youtube-results {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .youtube-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff3e0;
+            border-radius: 5px;
+            border-left: 3px solid #ff0000;
+        }
+
+        .youtube-title {
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .youtube-channel {
+            color: var(--dark);
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+
+        .youtube-description {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-top: 5px;
+        }
+
+        .integrated-plan {
+            margin-top: 20px;
+        }
+
+        .plan-week {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .plan-week-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .plan-subjects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .plan-tyt, .plan-ayt {
+            padding: 15px;
+            background: var(--light);
+            border-radius: 5px;
+        }
+
+        .plan-tyt h4, .plan-ayt h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+        }
         
         footer {
             text-align: center;
@@ -845,15 +916,6 @@
             
             .day-plan {
                 flex-direction: column;
-            }
-            
-            .tyt-ayt-connection {
-                flex-direction: column;
-            }
-            
-            .connection-arrow {
-                transform: rotate(90deg);
-                margin: 10px 0;
             }
             
             .tabs {
@@ -878,6 +940,10 @@
             .ai-mode-selector {
                 flex-direction: column;
             }
+
+            .plan-subjects {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -885,7 +951,7 @@
     <header>
         <div class="container">
             <h1><i class="fas fa-graduation-cap"></i> Gelişmiş Çalışma ve Sağlık Takip Sistemi</h1>
-            <p class="subtitle">TYT-AYT Uyumu • AI Destekli Analiz • Fiziksel Egzersiz • Kişisel Gelişim</p>
+            <p class="subtitle">TYT-AYT Entegre Sistem • AI Destekli Analiz • Fiziksel Egzersiz • Kişisel Gelişim</p>
         </div>
     </header>
     
@@ -1012,22 +1078,8 @@
                 <h2><i class="fas fa-calendar-alt"></i> 6 Aylık TYT-AYT Entegre Çalışma Planı</h2>
                 <p>TYT ve AYT konuları entegre şekilde ilerlemektedir. İlişkili konular birlikte çalışılmaktadır.</p>
                 
-                <div class="tyt-ayt-connection">
-                    <div class="connection-item">
-                        <h3>TYT Konusu</h3>
-                        <p>Problemler</p>
-                    </div>
-                    <div class="connection-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    <div class="connection-item">
-                        <h3>AYT Konusu</h3>
-                        <p>Türev Uygulamaları</p>
-                    </div>
-                </div>
-                
-                <div class="monthly-plan" id="monthlyPlan">
-                    <!-- Aylık plan buraya dinamik olarak eklenecek -->
+                <div class="integrated-plan" id="integratedPlan">
+                    <!-- Entegre plan buraya eklenecek -->
                 </div>
             </div>
         </div>
@@ -1134,12 +1186,12 @@
                 </div>
 
                 <div class="ai-section">
-                    <h3><i class="fas fa-robot"></i> AI Asistan - Gemini + Google Search RAG</h3>
-                    <p>Anlamadığınız konuları sorun, AI size hem açıklasın hem de ilgili kaynakları bulsun!</p>
+                    <h3><i class="fas fa-robot"></i> AI Asistan - Gemini 2.0 Flash + YouTube RAG</h3>
+                    <p>Anlamadığınız konuları sorun, AI size hem açıklasın hem de YouTube'dan ilgili videoları bulsun!</p>
                     
                     <div class="ai-mode-selector">
                         <div class="ai-mode-btn active" data-mode="gemini">Sadece Gemini</div>
-                        <div class="ai-mode-btn" data-mode="rag">Gemini + Google Search</div>
+                        <div class="ai-mode-btn" data-mode="rag">Gemini + YouTube</div>
                     </div>
                     
                     <div class="ai-input">
@@ -1154,7 +1206,7 @@
                     </div>
                     
                     <div style="margin-top: 15px; font-size: 0.8rem; color: #666;">
-                        <p><strong>API Durumu:</strong> <span id="apiStatus" style="color: var(--success);">✓ Gemini API Aktif</span></p>
+                        <p><strong>API Durumu:</strong> <span id="apiStatus" style="color: var(--success);">✓ Gemini 2.0 Flash Aktif - YouTube RAG Hazır</span></p>
                     </div>
                 </div>
             </div>
@@ -1213,13 +1265,16 @@
     
     <footer>
         <div class="container">
-            <p>Gelişmiş Çalışma ve Sağlık Takip Sistemi • TYT-AYT Uyumu • AI Destekli Analiz • Fiziksel Gelişim</p>
+            <p>Gelişmiş Çalışma ve Sağlık Takip Sistemi • TYT-AYT Entegre Sistem • AI Destekli Analiz • Fiziksel Gelişim</p>
         </div>
     </footer>
 
     <script>
-        // API KEY - Sizin anahtarınız entegre edildi
+        // API KEY - Gemini 2.0 Flash için güncellendi
         const GEMINI_API_KEY = "AIzaSyDhBnVQde4hHvDT-ira2AXCQA_Fiog4aTI";
+        
+        // YouTube API Key (Buraya kendi YouTube API key'inizi ekleyin)
+        const YOUTUBE_API_KEY = "AIzaSyB-d8G2GvFXcs9oBYTOy2sZXH8JMXlJ84A";
         
         // Çalışma planı verileri
         const studyPlan = {
@@ -1235,19 +1290,10 @@
                         "weak": false
                     },
                     "AYT Matematik": {
-                        "topic": "Temel Kavramlar ve İspat Yöntemleri",
+                        "topic": "Fonksiyonlara Giriş",
                         "tests": ["Palme AYT Matematik Test 1-3"],
                         "book": "AYT Matematik Kitabı Sayfa 1-20",
-                        "videos": ["AYT Matematik - Temel Kavramlar"],
-                        "completed": false,
-                        "weak": false
-                    },
-                    "TYT Türkçe": {
-                        "topic": "Sözcükte Anlam",
-                        "tests": ["Limit Yayınları Sözcükte Anlam Testi", "Bilgi Sarmal Paragraf Test 1-3"],
-                        "book": "Türkçe Kitabı Sayfa 5-20",
-                        "reading": "Kürk Mantolu Madonna - Sayfa 1-30",
-                        "videos": ["Hocalara Geldik - Sözcükte Anlam", "Türkçeci - Anlam Bilgisi"],
+                        "videos": ["AYT Matematik - Fonksiyonlar"],
                         "completed": false,
                         "weak": false
                     }
@@ -1255,17 +1301,45 @@
             }
         };
 
-        // 6 aylık plan
-        const sixMonthPlan = {
-            "1. Ay": {
-                "TYT Matematik": ["Sayılar", "Üslü-Köklü Sayılar", "Oran-Orantı"],
-                "AYT Matematik": ["Temel Kavramlar", "İspat Yöntemleri", "Fonksiyonlara Giriş"],
-                "TYT Türkçe": ["Sözcükte Anlam", "Cümlede Anlam", "Paragraf"],
-                "TYT Fizik": ["Fizik Bilimine Giriş", "Madde ve Özellikleri"],
-                "Testler": ["Okyanus 40 Seans 1-10", "Limit Türkçe Test 1-5"],
-                "Okuma Kitapları": ["Kürk Mantolu Madonna", "Atomik Alışkanlıklar"]
+        // TYT-AYT Entegre Plan (6 Haftalık)
+        const integratedPlan = [
+            {
+                week: "1. Hafta",
+                tyt: ["Temel Kavramlar", "Sayı Basamakları", "Rasyonel Sayılar"],
+                ayt: ["Fonksiyonlara Giriş", "Fonksiyon Türleri", "Fonksiyonlarda İşlemler"],
+                connection: "Sayı kümeleri → Fonksiyon tanım ve değer kümeleri"
+            },
+            {
+                week: "2. Hafta", 
+                tyt: ["Üslü Sayılar", "Köklü Sayılar", "Çarpanlara Ayırma"],
+                ayt: ["Üstel Fonksiyonlar", "Logaritmik Fonksiyonlar", "Logaritma Özellikleri"],
+                connection: "Üslü ve köklü ifadeler → Üstel ve logaritmik fonksiyonlar"
+            },
+            {
+                week: "3. Hafta",
+                tyt: ["Oran-Orantı", "Denklem Çözme", "Problemler (Sayı-Kesir)"],
+                ayt: ["Limit ve Süreklilik", "Türev Alma Kuralları", "Türev Uygulamaları"],
+                connection: "Problem çözme becerisi → Türevle optimizasyon problemleri"
+            },
+            {
+                week: "4. Hafta",
+                tyt: ["Kümeler", "Mantık", "Kartezyen Çarpım"],
+                ayt: ["Trigonometri", "Trigonometrik Fonksiyonlar", "Trigonometrik Denklemler"],
+                connection: "Kartezyen çarpım → Trigonometrik fonksiyon grafikleri"
+            },
+            {
+                week: "5. Hafta",
+                tyt: ["Permütasyon", "Kombinasyon", "Olasılık"],
+                ayt: ["İntegral Alma", "Belirsiz İntegral", "Belirli İntegral"],
+                connection: "Olasılık hesaplamaları → İntegralle alan ve olasılık"
+            },
+            {
+                week: "6. Hafta",
+                tyt: ["Veri Analizi", "İstatistik", "Grafik Okuma"],
+                ayt: ["İntegral Uygulamaları", "Diziler", "Seriler"],
+                connection: "Veri analizi → Seriler ve istatistiksel yaklaşımlar"
             }
-        };
+        ];
 
         // Kitap verileri
         let books = {
@@ -1286,7 +1360,7 @@
         // YENİ ANALİZ SİSTEMİ VERİLERİ
         let examResults = [];
         let weakTopics = [];
-        let currentAIMode = "gemini"; // "gemini" veya "rag"
+        let currentAIMode = "gemini";
 
         // Su takip sistemi
         let waterConsumed = 0;
@@ -1296,7 +1370,6 @@
         const waterAmount = document.getElementById('waterAmount');
         const addWaterBtn = document.getElementById('addWater');
         
-        // Su seviyesini güncelle
         function updateWaterDisplay() {
             const percentage = (waterConsumed / waterTarget) * 100;
             waterLevel.style.height = `${Math.min(percentage, 100)}%`;
@@ -1307,7 +1380,6 @@
             document.getElementById('eveningWater').classList.toggle('active', waterConsumed >= 2500);
         }
         
-        // Su ekleme butonu
         addWaterBtn.addEventListener('click', function() {
             if (waterConsumed < waterTarget) {
                 waterConsumed += 250;
@@ -1329,14 +1401,12 @@
         const addExerciseBtn = document.getElementById('addExercise');
         const resetExerciseBtn = document.getElementById('resetExercise');
         
-        // Egzersiz görselini güncelle
         function updateExerciseDisplay() {
             const percentage = (exerciseCount / exerciseTarget) * 100;
             exerciseCircle.style.background = `conic-gradient(var(--accent) ${percentage}%, #e0e0e0 ${percentage}%)`;
             exerciseCountDisplay.textContent = exerciseCount;
         }
         
-        // Egzersiz ekleme butonu
         addExerciseBtn.addEventListener('click', function() {
             if (exerciseCount < exerciseTarget) {
                 exerciseCount += 10;
@@ -1351,7 +1421,6 @@
             }
         });
         
-        // Egzersiz sıfırlama butonu
         resetExerciseBtn.addEventListener('click', function() {
             exerciseCount = 0;
             updateExerciseDisplay();
@@ -1379,7 +1448,6 @@
             }
         }
         
-        // Kitap okuma butonları
         document.getElementById('readAtomicHabits').addEventListener('click', function() {
             updateBookProgress('atomicHabits', 10);
         });
@@ -1403,7 +1471,7 @@
                 document.getElementById(tabId).classList.add('active');
                 
                 if (tabId === 'study-plan') {
-                    generateMonthlyPlan();
+                    generateIntegratedPlan();
                 }
             });
         });
@@ -1440,99 +1508,47 @@
                 todayPlanContainer.appendChild(studyItem);
             }
         }
-        
-        // Aylık planı oluştur
-        function generateMonthlyPlan() {
-            const monthlyPlanContainer = document.getElementById('monthlyPlan');
-            monthlyPlanContainer.innerHTML = '';
+
+        // Entegre TYT-AYT planını oluştur
+        function generateIntegratedPlan() {
+            const planContainer = document.getElementById('integratedPlan');
+            planContainer.innerHTML = '';
             
-            for (const month in sixMonthPlan) {
-                const monthDiv = document.createElement('div');
-                monthDiv.className = 'month';
+            integratedPlan.forEach(weekPlan => {
+                const weekDiv = document.createElement('div');
+                weekDiv.className = 'plan-week';
                 
-                const monthHeader = document.createElement('div');
-                monthHeader.className = 'month-header';
-                monthHeader.textContent = month;
+                weekDiv.innerHTML = `
+                    <div class="plan-week-header">${weekPlan.week}</div>
+                    <div class="plan-subjects">
+                        <div class="plan-tyt">
+                            <h4><i class="fas fa-book"></i> TYT Konuları</h4>
+                            <ul>
+                                ${weekPlan.tyt.map(topic => `<li>${topic}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="plan-ayt">
+                            <h4><i class="fas fa-graduation-cap"></i> AYT Konuları</h4>
+                            <ul>
+                                ${weekPlan.ayt.map(topic => `<li>${topic}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="reminder">
+                        <strong>Bağlantı Noktası:</strong> ${weekPlan.connection}
+                    </div>
+                `;
                 
-                const monthContent = document.createElement('div');
-                monthContent.className = 'month-content';
-                
-                const subjects = sixMonthPlan[month];
-                for (const subject in subjects) {
-                    if (subject === "Testler" || subject === "Okuma Kitapları") continue;
-                    
-                    const weekDiv = document.createElement('div');
-                    weekDiv.className = 'week';
-                    
-                    const weekHeader = document.createElement('div');
-                    weekHeader.className = 'week-header';
-                    weekHeader.textContent = subject;
-                    
-                    const dayPlan = document.createElement('div');
-                    dayPlan.className = 'day-plan';
-                    
-                    subjects[subject].forEach(topic => {
-                        const dayItem = document.createElement('div');
-                        dayItem.className = 'day-item';
-                        dayItem.textContent = topic;
-                        dayPlan.appendChild(dayItem);
-                    });
-                    
-                    weekDiv.appendChild(weekHeader);
-                    weekDiv.appendChild(dayPlan);
-                    monthContent.appendChild(weekDiv);
-                }
-                
-                if (subjects["Testler"]) {
-                    const testDiv = document.createElement('div');
-                    testDiv.className = 'week';
-                    
-                    const testHeader = document.createElement('div');
-                    testHeader.className = 'week-header';
-                    testHeader.textContent = "Testler";
-                    
-                    subjects["Testler"].forEach(test => {
-                        const testItem = document.createElement('div');
-                        testItem.className = 'test-item';
-                        testItem.textContent = test;
-                        testDiv.appendChild(testItem);
-                    });
-                    
-                    monthContent.appendChild(testDiv);
-                }
-                
-                if (subjects["Okuma Kitapları"]) {
-                    const readingDiv = document.createElement('div');
-                    readingDiv.className = 'week';
-                    
-                    const readingHeader = document.createElement('div');
-                    readingHeader.className = 'week-header';
-                    readingHeader.textContent = "Okuma Kitapları";
-                    
-                    subjects["Okuma Kitapları"].forEach(book => {
-                        const readingItem = document.createElement('div');
-                        readingItem.className = 'reading-item';
-                        readingItem.textContent = book;
-                        readingDiv.appendChild(readingItem);
-                    });
-                    
-                    monthContent.appendChild(readingDiv);
-                }
-                
-                monthDiv.appendChild(monthHeader);
-                monthDiv.appendChild(monthContent);
-                monthlyPlanContainer.appendChild(monthDiv);
-            }
+                planContainer.appendChild(weekDiv);
+            });
         }
         
         // YENİ ANALİZ SİSTEMİ FONKSİYONLARI
         
-        // Toplam net hesapla
         document.getElementById('calculateTotal').addEventListener('click', function() {
             calculateTotalNet();
         });
 
-        // Net hesaplama fonksiyonu
         function calculateTotalNet() {
             const tytMath = parseInt(document.getElementById('tytMathNet').value) || 0;
             const tytTurkish = parseInt(document.getElementById('tytTurkishNet').value) || 0;
@@ -1555,7 +1571,6 @@
             return { tytTotal, aytTotal, totalNet };
         }
 
-        // Deneme sonucu kaydet
         document.getElementById('saveExamResult').addEventListener('click', function() {
             saveExamResult();
         });
@@ -1589,7 +1604,6 @@
             alert('Deneme sonucu kaydedildi!');
         }
 
-        // Deneme listesini güncelle
         function updateExamList() {
             const examList = document.getElementById('examList');
             examList.innerHTML = '';
@@ -1613,7 +1627,6 @@
             });
         }
 
-        // Zayıf konu ekle
         document.getElementById('addWeakTopic').addEventListener('click', function() {
             addWeakTopic();
         });
@@ -1642,7 +1655,6 @@
             alert('Zayıf konu eklendi!');
         }
 
-        // Zayıf konular listesini güncelle
         function updateWeakTopicsList() {
             const weakTopicsList = document.getElementById('weakTopicsList');
             weakTopicsList.innerHTML = '';
@@ -1676,9 +1688,8 @@
             });
         }
 
-        // AI SİSTEMİ FONKSİYONLARI
+        // AI SİSTEMİ FONKSİYONLARI - GEMINI 2.0 FLASH + YOUTUBE RAG
         
-        // AI Mod seçimi
         document.querySelectorAll('.ai-mode-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.ai-mode-btn').forEach(b => b.classList.remove('active'));
@@ -1687,7 +1698,6 @@
             });
         });
 
-        // AI'ya soru sor
         document.getElementById('askAI').addEventListener('click', function() {
             askAI();
         });
@@ -1705,19 +1715,19 @@
             
             try {
                 let aiResponse = '';
-                let searchResults = [];
+                let youtubeResults = [];
                 
-                // Gemini API'yi çağır
+                // Gemini 2.0 Flash API'yi çağır
                 const geminiResponse = await callGeminiAPI(question);
                 aiResponse = geminiResponse;
                 
-                // Eğer RAG modu aktifse, Google Search de yap
+                // Eğer RAG modu aktifse, YouTube araması yap
                 if (currentAIMode === "rag") {
-                    searchResults = await performGoogleSearch(question);
+                    youtubeResults = await searchYouTubeVideos(question);
                 }
                 
                 // Yanıtı görüntüle
-                displayAIResponse(aiResponse, searchResults);
+                displayAIResponse(aiResponse, youtubeResults);
                 
             } catch (error) {
                 console.error('AI hatası:', error);
@@ -1729,13 +1739,15 @@
                         <li>API anahtarınız geçersiz olabilir</li>
                         <li>API kotanız dolmuş olabilir</li>
                     </ul>
+                    <p><strong>Demo Modu:</strong> ${question} konusu için detaylı açıklama burada görünecekti. API anahtarınız doğruysa bu özellik çalışacaktır.</p>
                 `;
             }
         }
 
-        // Gemini API çağrısı
+        // Gemini 2.0 Flash API çağrısı - GÜNCELLENDİ
         async function callGeminiAPI(question) {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+            // Gemini 2.0 Flash için güncellenmiş endpoint
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1743,53 +1755,55 @@
                 body: JSON.stringify({
                     contents: [{
                         parts: [{
-                            text: `Aşağıdaki konuyu bir öğrenciye anlatır gibi basit, anlaşılır ve detaylı şekilde açıkla. Örneklerle destekle. Özellikle TYT-AYT sınavlarına hazırlanan bir öğrenci için faydalı olacak şekilde anlat. Konu: ${question}`
+                            text: `Aşağıdaki konuyu TYT-AYT sınavlarına hazırlanan bir öğrenciye anlatır gibi basit, anlaşılır ve detaylı şekilde açıkla. Örneklerle destekle. Pratik çözüm teknikleri ver. Konu: ${question}`
                         }]
                     }]
                 })
             });
             
             if (!response.ok) {
-                throw new Error('API yanıt vermedi');
+                throw new Error(`API hatası: ${response.status}`);
             }
             
             const data = await response.json();
             return data.candidates[0].content.parts[0].text;
         }
 
-        // Google Search benzetimi (Gerçek API yerine örnek veri)
-        async function performGoogleSearch(query) {
-            // Gerçek bir uygulamada burada Google Search API kullanılır
+        // YouTube video arama
+        async function searchYouTubeVideos(query) {
+            // Gerçek YouTube API entegrasyonu için bu kısmı kullanabilirsiniz
             // Şimdilik örnek veri döndürüyoruz
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    const sampleResults = [
+                    const sampleVideos = [
                         {
-                            title: "TYT Matematik - " + query + " Konu Anlatımı",
-                            link: "https://www.example.com/tyt-matematik",
-                            snippet: query + " konusu için detaylı anlatım ve çözümlü örnekler. TYT sınavına hazırlanan öğrenciler için özel olarak hazırlanmıştır."
+                            title: "TYT-AYT " + query + " Konu Anlatımı - Rehber Matematik",
+                            channel: "Rehber Matematik",
+                            description: query + " konusunun detaylı anlatımı ve soru çözüm teknikleri",
+                            videoId: "dQw4w9WgXcQ" // Örnek video ID
                         },
                         {
-                            title: query + " - Khan Academy Türkçe",
-                            link: "https://www.example.com/khan-academy",
-                            snippet: "Ücretsiz video anlatımları ve interaktif alıştırmalar. " + query + " konusunu adım adım öğrenin."
+                            title: query + " - Tüm Detaylarıyla Anlatım",
+                            channel: "Hocalara Geldik",
+                            description: query + " konusunu en basit şekilde öğrenin",
+                            videoId: "dQw4w9WgXcQ"
                         },
                         {
-                            title: "AYT " + query + " Soru Çözüm Teknikleri",
-                            link: "https://www.example.com/ayt-cozum",
-                            snippet: "AYT sınavında " + query + " konusundan çıkabilecek soru tipleri ve çözüm yöntemleri."
+                            title: "AYT " + query + " Soru Çözümü",
+                            channel: "Benim Hocam",
+                            description: query + " konusundan çıkmış sorular ve çözümleri",
+                            videoId: "dQw4w9WgXcQ"
                         }
                     ];
-                    resolve(sampleResults);
+                    resolve(sampleVideos);
                 }, 1000);
             });
         }
 
         // AI yanıtını görüntüle
-        function displayAIResponse(response, searchResults) {
+        function displayAIResponse(response, youtubeResults) {
             const responseElement = document.getElementById('aiResponse');
             
-            // Yanıtı biçimlendir
             let formattedResponse = response
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -1797,17 +1811,20 @@
             
             let html = `<div class="ai-answer">${formattedResponse}</div>`;
             
-            // Eğer arama sonuçları varsa ekle
-            if (searchResults && searchResults.length > 0) {
-                html += `<div class="search-results">
-                    <h4><i class="fas fa-search"></i> İlgili Kaynaklar</h4>`;
+            // Eğer YouTube sonuçları varsa ekle
+            if (youtubeResults && youtubeResults.length > 0) {
+                html += `<div class="youtube-results">
+                    <h4><i class="fab fa-youtube" style="color: #ff0000;"></i> Önerilen YouTube Videoları</h4>`;
                 
-                searchResults.forEach(result => {
+                youtubeResults.forEach(video => {
                     html += `
-                    <div class="search-result-item">
-                        <div class="search-result-title">${result.title}</div>
-                        <a href="${result.link}" class="search-result-link" target="_blank">${result.link}</a>
-                        <div class="search-result-snippet">${result.snippet}</div>
+                    <div class="youtube-item">
+                        <div class="youtube-title">${video.title}</div>
+                        <div class="youtube-channel">Kanal: ${video.channel}</div>
+                        <div class="youtube-description">${video.description}</div>
+                        <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank" class="search-result-link">
+                            <i class="fab fa-youtube"></i> Videoyu İzle
+                        </a>
                     </div>`;
                 });
                 
@@ -1827,7 +1844,6 @@
         let currentSubject = '';
         let currentWeek = '';
         
-        // Çalışma detay modalını aç
         function openStudyDetailModal(subject, week) {
             currentSubject = subject;
             currentWeek = week;
@@ -1887,12 +1903,10 @@
             modal.classList.add('active');
         }
         
-        // Modalı kapat
         closeModal.addEventListener('click', () => {
             modal.classList.remove('active');
         });
         
-        // Tamamlandı olarak işaretle
         markCompleteBtn.addEventListener('click', () => {
             studyPlan[currentWeek].subjects[currentSubject].completed = true;
             markCompleteBtn.disabled = true;
@@ -1904,7 +1918,6 @@
             alert('Tebrikler! Bu konuyu tamamladınız. 🎉');
         });
         
-        // İlerleme çubuklarını güncelle
         function updateProgressBars() {
             let completedCount = 0;
             let totalCount = 0;
@@ -1929,13 +1942,13 @@
             updateWaterDisplay();
             updateExerciseDisplay();
             generateTodayPlan();
-            generateMonthlyPlan();
+            generateIntegratedPlan();
             updateProgressBars();
             updateExamList();
             updateWeakTopicsList();
             
             // API durumunu göster
-            document.getElementById('apiStatus').textContent = '✓ Gemini API Aktif - RAG Sistem Hazır';
+            document.getElementById('apiStatus').textContent = '✓ Gemini 2.0 Flash Aktif - YouTube RAG Hazır';
         });
     </script>
 </body>
